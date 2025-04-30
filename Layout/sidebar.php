@@ -6,5 +6,4 @@
 <nav>
     <a class="navlink" href="index.php">Home</a>
     <a class="navlink" href="Pages/homepage">Home</a>
-    <a class="navlink" href="index.php">Home</a>
 </nav>
