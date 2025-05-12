@@ -10,7 +10,6 @@
     <title>TeamGeneratorSite</title>
     <?php include_once 'imports.php'; ?>
     <?php include_once 'navigation.php'; ?>
-    <?php include_once 'logincheck.php'; ?>
     <link rel="stylesheet" href="Layout/layout.css">
 </head>
 <body>
@@ -21,7 +20,7 @@
 
     </div>
     <div class="content">
-        <?php include_once 'Content/index.php'; ?>
+        <?php include_once 'Content/login.php'; ?>
     </div>
 </body>
 
