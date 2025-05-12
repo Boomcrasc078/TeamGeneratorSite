@@ -14,13 +14,10 @@ if($link === false){
 }
 else
 echo " uppkopplingen lyckades  ";
-$respons= array();
+$response= array();
 if($link)
 {
   $sql = "SELECT * FROM users";
 
-  $resultat= mysql_qurey($link,$sql)
-
+  $resultat= mysqli_query($link,$sql);
 }
-
-?>
