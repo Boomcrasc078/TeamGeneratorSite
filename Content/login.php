@@ -1,11 +1,4 @@
-<div style="display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
-    gap: 10px;
-    padding: 20px;
-    margin: 0 auto;
-    max-width: 1200px;">
-
+<div class="flex full-width center">
     <div class="box-body">
         <form action="" method="post">
             <div class="form-group">

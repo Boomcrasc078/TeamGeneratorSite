@@ -9,8 +9,6 @@
     <base href="/TeamGeneratorSite/">
     <title>TeamGeneratorSite</title>
     <?php include_once 'imports.php'; ?>
-    <?php include_once 'navigation.php'; ?>
-    <?php include_once 'logincheck.php'; ?>
     <link rel="stylesheet" href="Layout/layout.css">
 </head>
 <body>

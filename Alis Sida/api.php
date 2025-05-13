@@ -21,3 +21,5 @@ if($link)
 
   $resultat= mysqli_query($link,$sql);
 }
+
+?>
