@@ -11,15 +11,7 @@
 </head>
 
 <body>
-    <div class="sidebar">
-        <?php include_once("Layout/sidebar.php"); ?>
-    </div>
-    <div class="topbar">
-        <?php include_once("Layout/topbar.php"); ?>
-    </div>
-    <div class="content">
-        <?php include_once 'Content/register.php'; ?>
-    </div>
+    <?php var_dump(value: get_all_users()); ?>
 </body>
 
 </html>

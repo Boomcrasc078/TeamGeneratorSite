@@ -1,1 +1,5 @@
-<h1>Hej</h1>
+<?php
+include_once 'Backend/imports.php';
+?>
+
+<h2>Welcome to TeamGeneratorSite</h1>
