@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <?php var_dump(value: get_all_users()); ?>
+    <?php var_dump(get_all_users()); ?>
 </body>
 
 </html>

@@ -6,24 +6,13 @@ include_once 'Backend/database.php';
 
 <?php
 $activities = get_activities_from_user($_SESSION['User'])
-?>
+    ?>
 
 <?php
-function add_activity($name): void
-{
-    global $database_link;
-
-    $query = "INSERT INTO activities (Name, UserId) VALUES (?, ?)";
-    $statement = mysqli_prepare($database_link, $query);
-    mysqli_stmt_bind_param($statement, 'si', $name, $_SESSION['User']['UserId']);
-    mysqli_stmt_execute($statement);
-    
-}
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_activity'])) {
     $name = 'new activity';
-    add_activity($name);
-    header('Location: activity.php');
+    $activity = add_activity($name);
+    header('Location: activity.php?activity=' . urlencode($activity['PublicKey']));
     exit();
 }
 ?>
@@ -39,10 +28,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_activity'])) {
         <div class="flex" style="flex-direction: column;">
             <?php
             foreach ($activities as $activity) { ?>
-                <div class="box-body" style="width: auto;">
+                <a class="box-body" style="width: auto;"
+                    href="activity.php?activity=<?php echo urlencode($activity['PublicKey']); ?>">
                     <h3><?php echo htmlspecialchars($activity['Name']); ?></h3>
-                </div>
-            <?php
+                </a>
+                <?php
             }
             ?>
 

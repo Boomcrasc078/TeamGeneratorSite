@@ -5,5 +5,5 @@
 
 <nav>
     <a class="navlink" href="index.php">Home</a>
-    <a class="navlink" href="activities.php">Activites</a>
+    <a class="navlink" href="activities.php">Activities</a>
 </nav>
