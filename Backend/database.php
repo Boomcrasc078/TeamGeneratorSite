@@ -42,21 +42,24 @@ function get_user_by_username(string $username): ?array
 {
     global $database_link;
 
-    $query = "SELECT * FROM users WHERE username = ?";
+    $query = "SELECT * FROM Users WHERE Username = ?";
 
     $statement = mysqli_prepare($database_link, $query);
+    if (!$statement) {
+        return null;
+    }
     mysqli_stmt_bind_param($statement, 's', $username);
     mysqli_stmt_execute($statement);
     $result = mysqli_stmt_get_result($statement);
-
     if ($result) {
-        return mysqli_fetch_assoc($result);
+        $user = mysqli_fetch_assoc($result);
+        return $user;
     } else {
         return null;
     }
 }
 
-function register_user($username, $password, $confirm_password)
+function register_user($username, $password)
 {
     global $database_link;
 
@@ -67,7 +70,7 @@ function register_user($username, $password, $confirm_password)
     mysqli_stmt_bind_param($statement, 'ss', $username, $hashed_password);
 
     if (mysqli_stmt_execute($statement)) {
-        return "Registration successful.";
+        return true;
     } else {
         return "Error: " . mysqli_error($database_link);
     }
@@ -79,9 +82,9 @@ function try_login_user($username, $password): bool
 
     $user = get_user_by_username(username: $username);
 
-    if ($user && isset($user['password']) && $user['password'] !== null) {
-        if (password_verify(password: $password, hash: $user['password'])) {
-            $_SESSION['user'] = $user;
+    if ($user && isset($user['Password']) && $user['Password'] !== null) {
+        if (password_verify(password: $password, hash: $user['Password'])) {
+            $_SESSION['User'] = $user;
             return true;
         } else {
             return false;
@@ -93,7 +96,7 @@ function try_login_user($username, $password): bool
 
 function redirect_to_login(): void
 {
-    if (isset($_SESSION['user'])) {
+    if (isset($_SESSION['User'])) {
         return;
     }
 
@@ -111,6 +114,23 @@ function redirect_to_login(): void
 
     header('Location: login.php');
     exit();
+}
+
+function get_activities_from_user($user): array
+{
+    global $database_link;
+
+    $query = "SELECT * FROM activities WHERE UserId = ?";
+    $statement = mysqli_prepare($database_link, $query);
+    mysqli_stmt_bind_param($statement, 'i', $user['UserId']);
+    mysqli_stmt_execute($statement);
+    $result = mysqli_stmt_get_result($statement);
+
+    if ($result) {
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    } else {
+        return [];
+    }
 }
 
 try_connect_to_database();
