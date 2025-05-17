@@ -1,5 +1,30 @@
 <?php
 include_once 'Backend/imports.php';
+include_once 'Backend/web.php';
+include_once 'Backend/database.php';
+?>
+
+<?php
+$username = $_POST['username'] ?? '';
+$password = $_POST['password'] ?? '';
+$error = '';
+if (empty($username)) {
+    $error = 'Username cannot be empty.';
+}
+if (empty($password)) {
+    $error = 'Password cannot be empty.';
+}
+if (empty($error)) {
+
+    $login_status = try_login_user(username: $username, password: $password);
+
+    if ($login_status) {
+        header(header: 'Location: index.php');
+        exit();
+    } else {
+        $error = 'Invalid password.';
+    }
+}
 ?>
 
 <div class="flex full-width center">
@@ -22,7 +47,7 @@ include_once 'Backend/imports.php';
                 <button type="submit" class="btn btn-primary">Login</button>
             </div>
             <div class="form-group">
-                <a href="register.php">Register</a>
+                <a href="register.php" class="btn btn-secondary">Don't have an account? Register</a>
             </div>
         </form>
     </div>

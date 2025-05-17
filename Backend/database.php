@@ -56,6 +56,41 @@ function get_user_by_username(string $username): ?array
     }
 }
 
+function register_user($username, $password, $confirm_password)
+{
+    global $database_link;
+
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+    $query = "INSERT INTO users (username, password) VALUES (?, ?)";
+    $statement = mysqli_prepare($database_link, $query);
+    mysqli_stmt_bind_param($statement, 'ss', $username, $hashed_password);
+
+    if (mysqli_stmt_execute($statement)) {
+        return "Registration successful.";
+    } else {
+        return "Error: " . mysqli_error($database_link);
+    }
+}
+
+function try_login_user($username, $password): bool
+{
+    global $database_link;
+
+    $user = get_user_by_username(username: $username);
+
+    if ($user && isset($user['password']) && $user['password'] !== null) {
+        if (password_verify(password: $password, hash: $user['password'])) {
+            $_SESSION['user'] = $user;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    return false;
+}
+
 function redirect_to_login(): void
 {
     if (isset($_SESSION['user'])) {
@@ -67,6 +102,10 @@ function redirect_to_login(): void
     }
 
     if (current_page() === 'register.php') {
+        return;
+    }
+
+    if (current_page() === 'database.php') {
         return;
     }
 

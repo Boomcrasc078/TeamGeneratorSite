@@ -7,6 +7,8 @@
     <base href="/TeamGeneratorSite/">
     <title>TeamGeneratorSite</title>
     <?php include_once 'Backend/imports.php'; ?>
+    <?php include_once 'Backend/web.php'; ?>
+    <?php include_once 'Backend/database.php'; ?>
     <link rel="stylesheet" href="Layout/layout.css">
 </head>
 

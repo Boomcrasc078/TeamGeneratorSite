@@ -174,3 +174,14 @@ form {
   background-color: var(--secondary-color);
   color: white;
 }
+
+.btn-secondary {
+  background-color: var(--secondary-color);
+  color: black;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
