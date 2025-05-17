@@ -17,18 +17,14 @@ function add_activity($name): void
     $statement = mysqli_prepare($database_link, $query);
     mysqli_stmt_bind_param($statement, 'si', $name, $_SESSION['User']['UserId']);
     mysqli_stmt_execute($statement);
-
-
-    if (isset($_POST['add_activity'])) {
-        add_activity($name);
-        header('Location: activities.php');
-        exit();
-    }
+    
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_activity'])) {
     $name = 'new activity';
     add_activity($name);
+    header('Location: activity.php');
+    exit();
 }
 ?>
 
@@ -43,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_activity'])) {
         <div class="flex" style="flex-direction: column;">
             <?php
             foreach ($activities as $activity) { ?>
-                <div class="box-body">
+                <div class="box-body" style="width: auto;">
                     <h3><?php echo htmlspecialchars($activity['Name']); ?></h3>
                 </div>
             <?php
