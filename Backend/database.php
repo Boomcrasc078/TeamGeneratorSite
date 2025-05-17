@@ -231,6 +231,42 @@ function delete_activity_action()
     }
 }
 
+// Change a user's username
+function change_user_username($userId, $newUsername) {
+    global $database_link;
+    // Check if username already exists
+    $query = "SELECT * FROM users WHERE Username = ? AND UserId != ?";
+    $statement = mysqli_prepare($database_link, $query);
+    mysqli_stmt_bind_param($statement, 'si', $newUsername, $userId);
+    mysqli_stmt_execute($statement);
+    $result = mysqli_stmt_get_result($statement);
+    if ($result && mysqli_fetch_assoc($result)) {
+        return 'Username already taken.';
+    }
+    $query = "UPDATE users SET Username = ? WHERE UserId = ?";
+    $statement = mysqli_prepare($database_link, $query);
+    mysqli_stmt_bind_param($statement, 'si', $newUsername, $userId);
+    if (mysqli_stmt_execute($statement)) {
+        return true;
+    } else {
+        return 'Error: ' . mysqli_error($database_link);
+    }
+}
+
+// Change a user's password
+function change_user_password($userId, $newPassword) {
+    global $database_link;
+    $hashed_password = password_hash($newPassword, PASSWORD_DEFAULT);
+    $query = "UPDATE users SET Password = ? WHERE UserId = ?";
+    $statement = mysqli_prepare($database_link, $query);
+    mysqli_stmt_bind_param($statement, 'si', $hashed_password, $userId);
+    if (mysqli_stmt_execute($statement)) {
+        return true;
+    } else {
+        return 'Error: ' . mysqli_error($database_link);
+    }
+}
+
 try_connect_to_database();
 redirect_to_login();
 

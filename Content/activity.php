@@ -150,5 +150,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (!empty($member_names) && ($team_co
         </div>
     </div>
     <?php endif; ?>
+    <div style="margin-top: 30px; text-align: center;">
+        <a class="btn btn-primary" href="counter.php?activity=<?= urlencode($activity['PublicKey']) ?>">Gå till Poängräknare</a>
+    </div>
 </div>
 </div>
